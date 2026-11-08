@@ -1,0 +1,21 @@
+{
+ "Ans": "Years",
+ "Calculatrice": "Calculator",
+ "Calculatrice scientifique : tape une expression entière au clavier ou clique les touches, le résultat s'affiche en direct. Priorités et parenthèses, puissances, factorielle, pourcentage, trigonométrie en degrés ou radians, logarithmes, racines, π, e, Ans et produit implicite (2π). Les 50 derniers calculs restent dans un historique ; un clic sur un résultat le réutilise.": "A scientific calculator: type a whole expression on the keyboard or click the keys, and the result shows live. Precedence and parentheses, powers, factorial, percent, trigonometry in degrees or radians, logarithms, roots, π, e, Ans and implicit multiplication (2π). The last 50 calculations stay in a history; click a result to reuse it.",
+ "Ce plugin doit être approuvé par NeoDex pour s'ouvrir.": "This plugin must be approved by NeoDex to open.",
+ "DEG": "DEG",
+ "EFFACER": "CLEAR",
+ "Enter": "Enter",
+ "Erreur": "Error",
+ "Escape": "Escape",
+ "Historique": "History",
+ "Les calculs apparaissent ici. Clic sur un résultat : le réutiliser.": "The calculations appear here. Click on a result: reuse it.",
+ "NEO-CALC 9000": "NEO-CALC 9000",
+ "RAD": "RAD",
+ "Rien n'est synchronisé : historique de calcul propre au PC.": "Nothing is synchronized: calculation history specific to the PC.",
+ "Tape au clavier ou clique · Entrée : calculer · Échap : effacer": "Type or click Enter: calculate Esc: delete",
+ "caractère inattendu :": "unexpected character:",
+ "division par zéro": "division by zero",
+ "expression incomplète": "incomplete expression",
+ "résultat infini": "infinite result"
+}
