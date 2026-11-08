@@ -1,7 +1,7 @@
 {
   "id": "neodex.calculatrice",
   "name": "Calculatrice",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "author": "NDesumeur",
   "description": "Calculatrice scientifique : tape une expression entière au clavier ou clique les touches, le résultat s'affiche en direct. Priorités et parenthèses, puissances, factorielle, pourcentage, trigonométrie en degrés ou radians, logarithmes, racines, π, e, Ans et produit implicite (2π). Les 50 derniers calculs restent dans un historique ; un clic sur un résultat le réutilise.",
   "icon": "icon.png",
