@@ -37,3 +37,8 @@ L'historique est rangé dans le dossier du plugin et sauvegardé par NeoDex, mai
 Dans NeoDex : **NeoStore → À découvrir → Calculatrice → Installer**.
 
 Développer un plugin : voir le [SDK NeoDex](https://github.com/NDesumeur/neodex-sdk).
+
+## Version 1.3.0
+
+- La calculatrice grandit avec la fenêtre : touches, écran et historique s'agrandissent (touches de 46 px dans une petite fenêtre, jusqu'à près de 80 px en plein écran).
+- La touche degrés / radians s'appelle « D/R » (bulle d'aide au survol), pour tenir dans sa case.

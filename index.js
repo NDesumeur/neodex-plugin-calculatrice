@@ -1,33 +1,34 @@
 // Calculatrice : ton appli d'origine (HTML et code inchangés), livrée en plugin.
 // Ses données sont dans le dossier du plugin, que NeoDex sauvegarde (synchro cloud et sauvegardes) ; à la première ouverture elle reprend ce que tu avais dans NeoDex.
 // Elle tourne dans le bac à sable de NeoDex, avec ses outils d'interface (ctx.host) et seulement les autorisations de son plugin.json.
-const HTML = "<div class=\"appWrap\">\n      <div class=\"agHead\"><span class=\"label\">Calculatrice</span><span class=\"hint\">Tape au clavier ou clique · Entrée : calculer · Échap : effacer</span></div>\n      <div class=\"calcMain\">\n        <div class=\"calcBody\"><div class=\"calcTop\"><span class=\"calcBrand\">NEO-CALC 9000</span><div class=\"calcSolar\"><i></i><i></i><i></i><i></i></div></div><div class=\"calcScreen\"><span id=\"calcMode\" class=\"badge\"></span><input id=\"calcIn\" spellcheck=\"false\" autocomplete=\"off\" placeholder=\"0\"><div id=\"calcOut\"></div></div><div id=\"calcKeys\"></div></div>\n        <div class=\"sysCard px calcSide\"><div class=\"chHead\"><span class=\"label\">Historique</span><button class=\"x\" id=\"calcClearHist\" style=\"margin-left:auto;font-size:8px\">EFFACER</button></div><div id=\"calcHist\"></div></div>\n      </div>\n    </div>";
+const HTML = "<div class=\"appWrap wide\">\n      <div class=\"agHead\"><span class=\"label\">Calculatrice</span><span class=\"hint\">Tape au clavier ou clique · Entrée : calculer · Échap : effacer</span></div>\n      <div class=\"calcMain\">\n        <div class=\"calcBody\"><div class=\"calcTop\"><span class=\"calcBrand\">NEO-CALC 9000</span><div class=\"calcSolar\"><i></i><i></i><i></i><i></i></div></div><div class=\"calcScreen\"><span id=\"calcMode\" class=\"badge\"></span><input id=\"calcIn\" spellcheck=\"false\" autocomplete=\"off\" placeholder=\"0\"><div id=\"calcOut\"></div></div><div id=\"calcKeys\"></div></div>\n        <div class=\"sysCard px calcSide\"><div class=\"chHead\"><span class=\"label\">Historique</span><button class=\"x\" id=\"calcClearHist\" style=\"margin-left:auto;font-size:8px\">EFFACER</button></div><div id=\"calcHist\"></div></div>\n      </div>\n    </div>";
 /*CSS-MOVED*/ const CSS = `.shGrid td.num{text-align:right}
 .chHead{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.calcMain{display:grid;grid-template-columns:minmax(0,440px) minmax(220px,300px);gap:34px;align-items:start;justify-content:center;padding:6px 0 18px}
+.calcMain{display:grid;grid-template-columns:minmax(0,clamp(440px,60vh,680px)) minmax(220px,clamp(300px,24vw,420px));gap:34px;align-items:start;justify-content:center;padding:6px 0 18px}
 /* le boîtier : bords en escalier, relief de plastique */
 .calcBody{position:relative;padding:18px 20px 22px;background:#3a2c78;clip-path:polygon(0 12px,4px 12px,4px 8px,8px 8px,8px 4px,12px 4px,12px 0,calc(100% - 12px) 0,calc(100% - 12px) 4px,calc(100% - 8px) 4px,calc(100% - 8px) 8px,calc(100% - 4px) 8px,calc(100% - 4px) 12px,100% 12px,100% calc(100% - 12px),calc(100% - 4px) calc(100% - 12px),calc(100% - 4px) calc(100% - 8px),calc(100% - 8px) calc(100% - 8px),calc(100% - 8px) calc(100% - 4px),calc(100% - 12px) calc(100% - 4px),calc(100% - 12px) 100%,12px 100%,12px calc(100% - 4px),8px calc(100% - 4px),8px calc(100% - 8px),4px calc(100% - 8px),4px calc(100% - 12px),0 calc(100% - 12px));
   box-shadow:inset 0 6px 0 #6b55c0,inset 6px 0 0 #5a45a8,inset 0 -8px 0 #221852,inset -6px 0 0 #2a1f5e}
 .calcTop{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.calcBrand{font:11px var(--title);letter-spacing:2px;color:#d9ccff;text-shadow:0 2px 0 #130a20}
+.calcBrand{font:clamp(11px,1.6vh,17px) var(--title);letter-spacing:2px;color:#d9ccff;text-shadow:0 2px 0 #130a20}
 .calcSolar{display:flex;gap:3px;padding:4px;background:#130a20}
-.calcSolar i{display:block;width:22px;height:14px;background:linear-gradient(180deg,#3a1f6e,#24134a);box-shadow:inset 0 0 0 1px #5b3bb0}
+.calcSolar i{display:block;width:clamp(22px,3vh,34px);height:clamp(14px,2vh,22px);background:linear-gradient(180deg,#3a1f6e,#24134a);box-shadow:inset 0 0 0 1px #5b3bb0}
 /* l'écran LCD : chiffres fantômes derrière, trame de pixels par-dessus */
 .calcScreen{position:relative;padding:12px 14px 10px;background:#b9e3a3;box-shadow:inset 0 0 0 4px #130a20,inset 0 6px 0 4px #7aa56a;overflow:hidden;margin-bottom:16px}
-.calcScreen::before{content:'88888888888';position:absolute;right:14px;top:26px;font:30px var(--title);color:rgba(20,40,20,.09);letter-spacing:0;pointer-events:none}
+.calcScreen::before{content:'88888888888';position:absolute;right:14px;top:clamp(26px,4vh,40px);font:clamp(30px,5vh,52px) var(--title);color:rgba(20,40,20,.09);letter-spacing:0;pointer-events:none}
 .calcScreen::after{content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.07) 0 2px,transparent 2px 4px),repeating-linear-gradient(90deg,rgba(0,0,0,.05) 0 2px,transparent 2px 4px)}
-#calcMode{position:absolute;top:8px;left:12px;font:10px var(--title);color:#1d3a1a;background:none;box-shadow:none;padding:0}
-#calcIn{all:unset;display:block;width:100%;box-sizing:border-box;text-align:right;font:30px var(--title);color:#16301a;padding-top:20px;position:relative}
+#calcMode{position:absolute;top:8px;left:12px;font:clamp(10px,1.5vh,15px) var(--title);color:#1d3a1a;background:none;box-shadow:none;padding:0}
+#calcIn{all:unset;display:block;width:100%;box-sizing:border-box;text-align:right;font:clamp(30px,5vh,52px) var(--title);color:#16301a;padding-top:clamp(20px,3vh,30px);position:relative}
 #calcIn::placeholder{color:rgba(22,48,26,.35)}
-#calcOut{text-align:right;font:18px var(--title);color:#3b6a3a;min-height:26px;margin-top:6px;position:relative}
-#calcKeys{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px 8px;margin-top:6px}
-#calcKeys .calcKey{all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:center;height:46px;cursor:var(--cp,pointer);font:13px var(--title);color:#fff;background:#4a3a96;overflow:hidden;white-space:nowrap;
+#calcOut{text-align:right;font:clamp(18px,2.8vh,30px) var(--title);color:#3b6a3a;min-height:clamp(26px,4vh,40px);margin-top:6px;position:relative}
+#calcKeys{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(10px,1.4vh,16px) clamp(8px,1.1vh,14px);margin-top:6px}
+#calcKeys .calcKey{all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:center;height:clamp(46px,7.4vh,80px);cursor:var(--cp,pointer);font:clamp(13px,2.1vh,22px) var(--title);color:#fff;background:#4a3a96;overflow:hidden;white-space:nowrap;
   box-shadow:inset 0 3px 0 rgba(255,255,255,.28),inset 0 -4px 0 rgba(0,0,0,.38),0 4px 0 #130a20,4px 4px 0 #130a20,-4px 4px 0 #130a20;text-shadow:0 2px 0 rgba(0,0,0,.4)}
 #calcKeys .calcKey:hover{filter:brightness(1.15)}
 #calcKeys .calcKey:active{transform:translateY(4px);box-shadow:inset 0 3px 0 rgba(0,0,0,.25),0 0 0 #130a20}
 #calcKeys .calcKey.wide{grid-column:span 2}
-#calcKeys .calcKey.num{background:#7a66d6;font-size:19px}
+#calcKeys .calcKey.num{background:#7a66d6;font-size:clamp(19px,3vh,32px)}
 #calcKeys .calcKey.op{background:#c0399f}
+#calcKeys .calcKey.mode{font-size:clamp(10px,1.45vh,16px)}
 #calcKeys .calcKey.del{background:#c04a4a}
 #calcKeys .calcKey.main{background:#e0a31e;color:#2a1a00;text-shadow:none}
 /* le ticket : l'historique comme une bande de papier */
@@ -35,10 +36,10 @@ const HTML = "<div class=\"appWrap\">\n      <div class=\"agHead\"><span class=\
 .calcSide .label{color:#201638!important}
 .calcRow{all:unset;cursor:var(--cp,pointer);display:flex;flex-direction:column;align-items:flex-end;padding:8px 6px;border-bottom:2px dashed rgba(32,22,56,.25)}
 .calcRow:hover{background:rgba(32,22,56,.08)}
-.calcRow span{display:block;font:12px var(--title);color:#5b4d85;word-break:break-all;line-height:1.4}
+.calcRow span{display:block;font:clamp(12px,1.8vh,18px) var(--title);color:#5b4d85;word-break:break-all;line-height:1.4}
 .calcRow b{display:block;line-height:1.4}
-.calcRow b{font:16px var(--title);color:#201638}
-#calcHist{max-height:480px;overflow-y:auto}
+.calcRow b{font:clamp(16px,2.6vh,28px) var(--title);color:#201638}
+#calcHist{max-height:clamp(480px,68vh,860px);overflow-y:auto}
 #calcHist .hint{color:#5b4d85}
 @media(max-width:820px){.calcMain{grid-template-columns:minmax(0,1fr)}}
 `;  // le style de ce plugin (il utilise les variables du thème de NeoDex)
@@ -121,10 +122,11 @@ export default async function (ctx) {
     ['x²', '^2'], ['xʸ', '^'], ['(', '('], [')', ')'], ['π', 'π'], ['e', 'e'],
     ['7', '7'], ['8', '8'], ['9', '9'], ['÷', '÷'], ['C', 'clear'], ['⌫', 'back'],
     ['4', '4'], ['5', '5'], ['6', '6'], ['×', '×'], ['n!', '!'], ['%', '%'],
-    ['1', '1'], ['2', '2'], ['3', '3'], ['−', '−'], ['Ans', 'Ans'], ['DEG/RAD', 'mode'],
+    ['1', '1'], ['2', '2'], ['3', '3'], ['−', '−'], ['Ans', 'Ans'], ['D/R', 'mode'],
     ['0', '0', 1], [',', ','], ['+', '+'], ['=', 'equals', 1]];
   $('calcKeys').replaceChildren(...CALC_KEYS.map(([label, v, wide]) => {
-    const b = el('button', 'btn px calcKey' + (/^\d$|^,$/.test(label) ? ' num' : '') + (v === 'equals' ? ' main' : '') + (/^[÷×−+]$/.test(label) ? ' op' : '') + (v === 'clear' || v === 'back' ? ' del' : '') + (wide ? ' wide' : ''), label);
+    const b = el('button', 'btn px calcKey' + (/^\d$|^,$/.test(label) ? ' num' : '') + (v === 'equals' ? ' main' : '') + (/^[÷×−+]$/.test(label) ? ' op' : '') + (v === 'clear' || v === 'back' ? ' del' : '') + (wide ? ' wide' : '') + (v === 'mode' ? ' mode' : ''), label);
+    if (v === 'mode') b.title = 'Degrés ou radians';
     b.onclick = () => {
       const inp = $('calcIn');
       if (v === 'clear') inp.value = ''; else if (v === 'back') inp.value = inp.value.slice(0, -1); else if (v === 'equals') return calcEquals(); else if (v === 'mode') calcDeg = !calcDeg;

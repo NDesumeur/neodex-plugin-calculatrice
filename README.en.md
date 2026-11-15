@@ -37,3 +37,8 @@ The history is kept in the plugin's folder and backed up by NeoDex, but it is no
 In NeoDex: **NeoStore → Discover → Calculatrice → Install**.
 
 Building a plugin: see the [NeoDex SDK](https://github.com/NDesumeur/neodex-sdk).
+
+## Version 1.3.0
+
+- The calculator grows with the window: keys, screen and history get bigger (46 px keys in a small window, up to almost 80 px full screen).
+- The degrees / radians key is now "D/R" (tooltip on hover), so it fits in its key.
