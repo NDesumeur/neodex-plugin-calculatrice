@@ -4,6 +4,10 @@ Une calculatrice scientifique : tape ton calcul au clavier ou clique sur les tou
 
 *English version: [README.en.md](README.en.md)*
 
+## En toutes lettres, avec les unités (nouveau en 1.4.0)
+
+20 % de 85 € + 12 €, 3 jours en heures, 100 km / 2 h, des variables : la calculatrice comprend les phrases et les unités.
+
 ## Comment l'utiliser
 
 - Tape une expression entière, par exemple `2(3+4)^2 ÷ 5` ou `sin(30) + √16`. Le résultat provisoire (« = … ») s'affiche en direct sous la saisie.
@@ -23,6 +27,18 @@ Une calculatrice scientifique : tape ton calcul au clavier ou clique sur les tou
 - **DEG/RAD** bascule les angles entre degrés et radians ; le mode actif est affiché.
 
 Les erreurs sont dites en clair : expression incomplète, division par zéro, factorielle impossible, caractère inattendu. Les très grands et très petits nombres s'affichent en notation scientifique, avec 14 chiffres significatifs au plus.
+
+## En toutes lettres, avec les unités (1.4.0)
+
+Tape comme tu parles :
+
+- **Pourcentages** : `20 % de 85 €` (17 €), `85 € + 20 %` (102 €), `12 € - 10 %` (10,8 €).
+- **Unités** : longueurs (m, km, cm, mile, pied, pouce), surfaces, volumes (L, cl, ml), masses (g, kg, t, livre, once), durées (s, min, h, jour, semaine, mois, an), vitesses (km/h, m/s, mph), données (o, Ko, Mo, Go, To), températures (°C, °F, K) et monnaies (€, $, £, ¥, CHF, sans taux de change). `2 h 30 min` s’additionnent tout seuls, `100 km / 2 h` donne 50 km/h, `60 km/h * 2 h` donne 120 km.
+- **Conversions** avec « en », « in », « to » ou « → » : `3 jours en heures` (72 h), `20 °C en °F` (68 °F), `1 Go en Mo`.
+- **Mots** : plus, moins, fois, divisé par.
+- **Variables** : `prix = 40 €`, puis `prix * 3 - 10 %`. Elles restent en haut du ticket.
+
+Ajouter deux unités qui ne vont pas ensemble (des mètres et des kilos) affiche « unités incompatibles ».
 
 ## Historique
 

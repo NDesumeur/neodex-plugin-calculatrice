@@ -7,5 +7,10 @@ module.exports = async ({ pj, sleep }) => {
   await pj(`(() => { const i = document.getElementById('calcIn'); i.value = '12×3'; i.dispatchEvent(new Event('input', {bubbles: true})); i.dispatchEvent(new KeyboardEvent('keydown', {key: 'Enter', bubbles: true})); })(), 0`); await sleep(200);
   const out = await pj(`document.getElementById('calcIn').value + ' | ' + document.getElementById('calcOut').textContent`);
   if (!/36/.test(out)) throw new Error('12×3 : ' + out);
-  return 'touches de ' + r.key + ' px, calculatrice de ' + r.body + ' px, 12×3 = 36';
+  // en langage naturel, une variable, puis la variable réutilisée
+  const run = async t => { await pj(`(() => { const i = document.getElementById('calcIn'); i.value = ${JSON.stringify(t)}; i.dispatchEvent(new Event('input', {bubbles: true})); i.dispatchEvent(new KeyboardEvent('keydown', {key: 'Enter', bubbles: true})); })(), 0`); await sleep(150); return pj(`document.getElementById('calcIn').value`); };
+  const a = await run('20 % de 85 € + 12 €'), b = await run('3 jours en heures'), c = await run('prix = 40 €'), d = await run('prix * 3 - 10 %');
+  const vars = await pj(`document.querySelector('.calcVars')?.textContent || ''`);
+  if (a !== '29 €' || b !== '72 h' || c !== '' || d !== '108 €' || !/prix = 40 €/.test(vars)) throw new Error('langage naturel : ' + JSON.stringify({a, b, c, d, vars}));
+  return '20 % de 85 € + 12 € = 29 €, 3 jours = 72 h, variable prix · touches de ' + r.key + ' px, calculatrice de ' + r.body + ' px, 12×3 = 36';
 };
